@@ -46,8 +46,13 @@ public class App
         double length = myApp.convertStringToDouble(lengthString);
         double width = myApp.convertStringToDouble(widthString);
 
-        double gallonsNeeded = myApp.getGallons(length, width, coverage);
+        double area = myApp.getArea(length, width);
+        double gallonsNeeded = myApp.getGallons(area, coverage);
         String gallonsNeededString = String.format("%.0f", gallonsNeeded);
+        String areaString = String.format("%.0f", area);
+
+        String message = myApp.generateMessage(gallonsNeededString, areaString);
+        System.out.print(message);
 
     }
 
@@ -66,8 +71,11 @@ public class App
         return Double.parseDouble(word);
     }
 
-    public double getGallons(double length, double width, double cover){
-        double gallons = (length * width) / cover;
+    public double getArea(double length, double width){
+        return (length * width);
+    }
+    public double getGallons(double area, double cover){
+        double gallons = area / cover;
         double leftover = gallons % 1.0;
 
         if (leftover != 0.0){
@@ -78,7 +86,7 @@ public class App
         return gallons;
     }
 
-    public String generateMessage(String gallons, String cover){
-        return "You will need to purchase " + gallons + " gallons of paint to cover " + cover + " square feet.";
+    public String generateMessage(String gallons, String area){
+        return "You will need to purchase " + gallons + " gallons of paint to cover " + area + " square feet.";
     }
 }
